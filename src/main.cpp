@@ -115,24 +115,24 @@ int main()
 
 
     // Definition d'un tableau de vecteurs
-    vector<vec3> vertices;
-    vertices.push_back(vec3(-1, -1, 0));
-    vertices.push_back(vec3( 1, -1, 0));
-    vertices.push_back(vec3(-1,  1, 0));
-    // vertices.push_back(vec3(-1,  1, 0));
-    // vertices.push_back(vec3( 1, -1, 0));
-    vertices.push_back(vec3( 1,  1, 0));
+ //    vector<vec3> vertices;
+ //    vertices.push_back(vec3(-1, -1, 0));
+ //    vertices.push_back(vec3( 1, -1, 0));
+ //    vertices.push_back(vec3(-1,  1, 0));
+ //    // vertices.push_back(vec3(-1,  1, 0));
+ //    // vertices.push_back(vec3( 1, -1, 0));
+ //    vertices.push_back(vec3( 1,  1, 0));
 
-    // Creation d'un vertex buffer (VBO) avec vertexBufferID pour identifiant
-    GLuint vertexBufferID;
-    glGenBuffers(1, &vertexBufferID);
-    cout << "vertexBufferID = " << vertexBufferID << endl;
+ //    // Creation d'un vertex buffer (VBO) avec vertexBufferID pour identifiant
+ //    GLuint vertexBufferID;
+ //    glGenBuffers(1, &vertexBufferID);
+ //    cout << "vertexBufferID = " << vertexBufferID << endl;
 
-    // Definition de vertexBufferID comme le buffer courant
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
+ //    // Definition de vertexBufferID comme le buffer courant
+ //    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
 
-    // Copie des donnees sur la carte graphique (dans vertexBufferID)
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vec3), vertices.data(), GL_STATIC_DRAW);
+ //    // Copie des donnees sur la carte graphique (dans vertexBufferID)
+	// glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vec3), vertices.data(), GL_STATIC_DRAW);
 
 
 
@@ -140,24 +140,24 @@ int main()
     // Todo 1 : Creation d'un nouveau buffer pour la couleur
     //==================================================
 
-    vector<vec3> colors;
-    colors.push_back(vec3(1,0,0));
-    colors.push_back(vec3(0,1,0));
-    colors.push_back(vec3(0,0,1));
-    // colors.push_back(vec3(0,0,1));
-    // colors.push_back(vec3(0,1,0));
-    colors.push_back(vec3(1,1,1));
+ //    vector<vec3> colors;
+ //    colors.push_back(vec3(1,0,0));
+ //    colors.push_back(vec3(0,1,0));
+ //    colors.push_back(vec3(0,0,1));
+ //    // colors.push_back(vec3(0,0,1));
+ //    // colors.push_back(vec3(0,1,0));
+ //    colors.push_back(vec3(1,1,1));
 
-    // Creation d'un vertex buffer (VBO) avec vertexBufferID pour identifiant
-    GLuint colorBufferID;
-    glGenBuffers(1, &colorBufferID);
-    cout << "colorBufferID = " << colorBufferID << endl;
+ //    // Creation d'un vertex buffer (VBO) avec vertexBufferID pour identifiant
+ //    GLuint colorBufferID;
+ //    glGenBuffers(1, &colorBufferID);
+ //    cout << "colorBufferID = " << colorBufferID << endl;
 
-    // Definition de vertexBufferID comme le buffer courant
-    glBindBuffer(GL_ARRAY_BUFFER, colorBufferID);
+ //    // Definition de vertexBufferID comme le buffer courant
+ //    glBindBuffer(GL_ARRAY_BUFFER, colorBufferID);
 
-    // Copie des donnees sur la carte graphique (dans vertexBufferID)
-	glBufferData(GL_ARRAY_BUFFER, colors.size() * sizeof(vec3), colors.data(), GL_STATIC_DRAW);
+ //    // Copie des donnees sur la carte graphique (dans vertexBufferID)
+	// glBufferData(GL_ARRAY_BUFFER, colors.size() * sizeof(vec3), colors.data(), GL_STATIC_DRAW);
 
 
 
@@ -165,29 +165,64 @@ int main()
     // Todo 2 : Creation d'un nouveau buffer pour les indices
     //==================================================
 
-    vector<uint> indices;
-    indices.push_back(0);
-    indices.push_back(1);
-    indices.push_back(2);
-    indices.push_back(2);
-    indices.push_back(1);
-    indices.push_back(3);
+    // vector<uint> indices;
+    // indices.push_back(0);
+    // indices.push_back(1);
+    // indices.push_back(2);
+    // indices.push_back(2);
+    // indices.push_back(1);
+    // indices.push_back(3);
 
-    GLuint indiceBufferID;
+    // GLuint indiceBufferID;
 
-    // création d'un nouveau buffer
-    glGenBuffers(1, &indiceBufferID);
+    // // création d'un nouveau buffer
+    // glGenBuffers(1, &indiceBufferID);
 
     //==================================================
     // Todo 3 : Creation des buffers avec le chargement d'un maillage
     //==================================================
 
+    Mesh m("../models/armadillo.off");
+    // m.normalize();
 
 
+    // ------------ Vertices 
+    vector<vec3> vertices = m.vertices;
+
+    // Creation d'un vertex buffer (VBO) avec vertexBufferID pour identifiant
+    GLuint vertexBufferID;
+    glGenBuffers(1, &vertexBufferID);
+    cout << "vertexBufferID = " << vertexBufferID << endl;
+    cout << "vertices size = " << vertices.size() << endl;
+
+    // Definition de vertexBufferID comme le buffer courant
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
+
+    // Copie des donnees sur la carte graphique (dans vertexBufferID)
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vec3), vertices.data(), GL_STATIC_DRAW);
+
+    // ------------ Colors
+    vector<vec3> colors = m.normals;
+
+    // Creation d'un vertex buffer (VBO) avec vertexBufferID pour identifiant
+    GLuint colorBufferID;
+    glGenBuffers(1, &colorBufferID);
+    cout << "colorBufferID = " << colorBufferID << endl;
+    cout << "color size = " << colors.size() << endl;
+
+    // Definition de vertexBufferID comme le buffer courant
+    glBindBuffer(GL_ARRAY_BUFFER, colorBufferID);
+
+    // Copie des donnees sur la carte graphique (dans vertexBufferID)
+    glBufferData(GL_ARRAY_BUFFER, colors.size() * sizeof(vec3), colors.data(), GL_STATIC_DRAW);
 
 
+    vector<uint> indices = m.faces;
 
+    GLuint indiceBufferID;
 
+    // création d'un nouveau buffer
+    glGenBuffers(1, &indiceBufferID);
 
 //-------------------------------------------------
 // Initialisation des matrices MVP
@@ -355,7 +390,6 @@ int main()
 
     glDeleteBuffers(1, &colorBufferID);
 
-
     glDeleteBuffers(1, &indiceBufferID);
 
 
@@ -441,6 +475,16 @@ void view_control(mat4& view_matrix, float dx)
         vec4 axis = vec4(0.0, 1.0, 0.0, 0.0) * (-dx);
         axis = inverse(view_matrix) * axis;
         view_matrix = translate(view_matrix, vec3(axis));
+    }
+    if (glfwGetKey( GLFW_KEY_L ) == GLFW_PRESS)
+    {
+        vec4 axis = vec4(0.9, 0.9, 0.9, 0.0);
+        view_matrix = scale(view_matrix, vec3(axis));
+    }
+    if (glfwGetKey( GLFW_KEY_M ) == GLFW_PRESS)
+    {
+        vec4 axis = vec4(1.1, 1.1, 1.1, 0.0);
+        view_matrix = scale(view_matrix, vec3(axis));
     }
 }
 

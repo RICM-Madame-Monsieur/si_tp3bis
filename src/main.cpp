@@ -114,7 +114,7 @@ int main()
 // Initialisation des arrays de données
 
 
-    // Definition d'un tableau de vecteurs
+ // // Definition d'un tableau de vecteurs
  //    vector<vec3> vertices;
  //    vertices.push_back(vec3(-1, -1, 0));
  //    vertices.push_back(vec3( 1, -1, 0));
@@ -182,8 +182,8 @@ int main()
     // Todo 3 : Creation des buffers avec le chargement d'un maillage
     //==================================================
 
-    Mesh m("../models/armadillo.off");
-    // m.normalize();
+    Mesh m("../models/dragon.off");
+    m.normalize();
 
 
     // ------------ Vertices 

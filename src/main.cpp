@@ -119,8 +119,8 @@ int main()
     vertices.push_back(vec3(-1, -1, 0));
     vertices.push_back(vec3( 1, -1, 0));
     vertices.push_back(vec3(-1,  1, 0));
-    vertices.push_back(vec3(-1,  1, 0));
-    vertices.push_back(vec3( 1, -1, 0));
+    // vertices.push_back(vec3(-1,  1, 0));
+    // vertices.push_back(vec3( 1, -1, 0));
     vertices.push_back(vec3( 1,  1, 0));
 
     // Creation d'un vertex buffer (VBO) avec vertexBufferID pour identifiant
@@ -144,8 +144,8 @@ int main()
     colors.push_back(vec3(1,0,0));
     colors.push_back(vec3(0,1,0));
     colors.push_back(vec3(0,0,1));
-    colors.push_back(vec3(0,0,1));
-    colors.push_back(vec3(0,1,0));
+    // colors.push_back(vec3(0,0,1));
+    // colors.push_back(vec3(0,1,0));
     colors.push_back(vec3(1,1,1));
 
     // Creation d'un vertex buffer (VBO) avec vertexBufferID pour identifiant
@@ -165,8 +165,18 @@ int main()
     // Todo 2 : Creation d'un nouveau buffer pour les indices
     //==================================================
 
+    vector<uint> indices;
+    indices.push_back(0);
+    indices.push_back(1);
+    indices.push_back(2);
+    indices.push_back(2);
+    indices.push_back(1);
+    indices.push_back(3);
 
+    GLuint indiceBufferID;
 
+    // création d'un nouveau buffer
+    glGenBuffers(1, &indiceBufferID);
 
     //==================================================
     // Todo 3 : Creation des buffers avec le chargement d'un maillage
@@ -251,8 +261,11 @@ int main()
     // Todo : Bindez le buffer d'indices
     //==================================================
 
+    // définition de celui-ci comme le buffer courant
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indiceBufferID);
 
-
+    // recopie des données de "indices" dans le buffer courant
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(uint), indices.data(), GL_STATIC_DRAW);
 
 
 
@@ -303,7 +316,9 @@ int main()
         //==================================================
 
         // On dit a OpenGL de dessiner le contenu du buffer courant
-        glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+        // glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+
+        glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, (void*)0);
 
 
 		// Echange des zones de dessin buffers
@@ -341,7 +356,7 @@ int main()
     glDeleteBuffers(1, &colorBufferID);
 
 
-
+    glDeleteBuffers(1, &indiceBufferID);
 
 
 
